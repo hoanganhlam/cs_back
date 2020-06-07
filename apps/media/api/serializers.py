@@ -1,7 +1,6 @@
 from apps.media import models
 from rest_framework import serializers
 from sorl.thumbnail import get_thumbnail
-from apps.activity.actions import is_following
 from django.contrib.auth.models import User
 from apps.authentication.models import Profile
 
@@ -20,23 +19,15 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     profile = serializers.SerializerMethodField()
-    is_following = serializers.SerializerMethodField()
 
     class Meta:
         model = User
-        fields = ['id', 'first_name', 'last_name', 'username', 'profile', 'is_following']
+        fields = ['id', 'first_name', 'last_name', 'username', 'profile']
 
     def get_profile(self, instance):
         if hasattr(instance, 'profile'):
             return ProfileSerializer(instance.profile).data
         return None
-
-    def get_is_following(self, instance):
-        if self.context.get("request"):
-            user = self.context.get("request").user
-            if user.is_authenticated:
-                return is_following(user, instance)
-        return False
 
 
 class MediaSerializer(serializers.ModelSerializer):
@@ -58,9 +49,8 @@ class MediaSerializer(serializers.ModelSerializer):
     def get_sizes(self, instance):
         if instance.path:
             return {
-                "thumb_270_270": get_thumbnail(instance.path, '270x270', crop='center', quality=100).url,
-                "thumb_540_540": get_thumbnail(instance.path, '540x540', crop='center', quality=100).url,
-                "resize": get_thumbnail(instance.path, '540', crop='noop', quality=100).url
+                "thumb_128x128": get_thumbnail(instance.path, '128x128', crop='noop', quality=100).url,
+                "thumb_24_24": get_thumbnail(instance.path, '24x24', crop='noop', quality=100).url
             }
         else:
             return {}

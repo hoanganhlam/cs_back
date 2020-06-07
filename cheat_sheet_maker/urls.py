@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^v1/general/', include(('apps.general.api.urls', 'api_general'), namespace='api_general')),
     url(r'^v1/auth/', include(('apps.authentication.api.urls', 'api_auth'))),
+    url(r'^v1/media/', include(('apps.media.api.urls', 'api_media'))),
     url(r'^v1/sheet/', include(('apps.sheet.api.urls', 'api_sheet'))),
     re_path(r'^account-confirm-email/', VerifyEmailView.as_view(), name='account_email_verification_sent'),
     re_path(r'^account-confirm-email/(?P<key>[-:\w]+)/$', VerifyEmailView.as_view(), name='account_confirm_email'),

@@ -103,8 +103,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.getenv('POSTGRES_DBNAME', 'cheatsheet'),
         'USER': os.getenv('POSTGRES_USER', 'lam'),
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'Hoanganhlam@no99'),
-        'HOST': os.getenv('POSTGRES_HOST', '45.77.191.254'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'HoangAnhLam@no99a'),
+        'HOST': os.getenv('POSTGRES_HOST', 'localhost'),
         'PORT': os.getenv('POSTGRES_PORT', '5432'),
     }
 }
@@ -215,3 +215,4 @@ REST_AUTH_REGISTER_SERIALIZERS = {
     'REGISTER_SERIALIZER': 'apps.authentication.api.serializers.NameRegistrationSerializer',
 }
 ACCOUNT_EMAIL_VERIFICATION = 'optional'
+THUMBNAIL_PRESERVE_FORMAT = True

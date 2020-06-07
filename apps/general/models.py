@@ -11,3 +11,5 @@ from utils.slug import unique_slugify
 
 class HashTag(Taxonomy):
     for_models = ArrayField(models.CharField(max_length=50), null=True, blank=True)
+    is_important = models.BooleanField(default=False)
+
