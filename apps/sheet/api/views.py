@@ -19,10 +19,10 @@ class CheatSheetViewSet(viewsets.ModelViewSet):
     lookup_field = 'slug'
 
     def list(self, request, *args, **kwargs):
-        tag = request.GET.get("tag")
-        if tag:
-            self.queryset = self.queryset.filter(hash_tags=int(tag))
-        return super(CheatSheetViewSet, self).list(request, *args, **kwargs)
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT FETCH_SHEETS(%s)", [False])
+            out = cursor.fetchone()[0]
+        return Response(out)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
