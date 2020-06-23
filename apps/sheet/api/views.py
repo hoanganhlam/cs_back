@@ -6,11 +6,12 @@ from apps.sheet import models
 from rest_framework.response import Response
 from rest_framework import status
 from django.db import connection
+from django.utils import timezone
 
 
 class CheatSheetViewSet(viewsets.ModelViewSet):
     models = models.CheatSheet
-    queryset = models.objects.order_by('-id')
+    queryset = models.objects.filter(date_published__lte=timezone.now()).order_by('-id')
     serializer_class = serializers.CheatSheetSerializer
     permission_classes = permissions.AllowAny,
     pagination_class = pagination.Pagination
