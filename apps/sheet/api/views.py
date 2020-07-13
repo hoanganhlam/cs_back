@@ -11,7 +11,7 @@ from django.utils import timezone
 
 class CheatSheetViewSet(viewsets.ModelViewSet):
     models = models.CheatSheet
-    queryset = models.objects.filter(date_published__lte=timezone.now()).order_by('-id')
+    queryset = models.objects.all()
     serializer_class = serializers.CheatSheetSerializer
     permission_classes = permissions.AllowAny,
     pagination_class = pagination.Pagination
