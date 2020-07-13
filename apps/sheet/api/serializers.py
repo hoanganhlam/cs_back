@@ -1,4 +1,5 @@
 from apps.sheet import models
+from apps.media.api.serializers import MediaSerializer
 from rest_framework import serializers
 
 
@@ -12,4 +13,5 @@ class CheatSheetSerializer(serializers.ModelSerializer):
         }
 
     def to_representation(self, instance):
+        self.fields['media'] = MediaSerializer(read_only=True)
         return super(CheatSheetSerializer, self).to_representation(instance)
